@@ -8,6 +8,7 @@ so that the same athlete carries the same label across both views.
 
 2 . Methodology
 | Stage | Technique | Rationale |
+
 | 1️Detection | YOLOv8‑n(class 0 = “person”) | Fast, tiny model; accurate enough at 640 px |
 | Single‑camera tracking | Feature‑averaged cosine similarity + Hungarian match + “max disappeared = 5” | Stable track IDs inside each camera |
 | Visual embedding | ResNet‑50 (ImageNet weights, fc removed) | Lightweight 2048‑D descriptor without extra training |
@@ -18,6 +19,7 @@ Parameters tuned empirically: similarity threshold = 0.40, history length 
 
 3 . Experiments & outcomes
 Metric | Value|
+
 Frames processed | 132 |
 Frames with ≥1 cross‑match | 30 |
 Total cross‑matches | 431** |
@@ -27,6 +29,7 @@ Qualitatively, IDs stay consistent for most full‑body appearances; occasional
 switches occur during heavy occlusion or when only a limb is visible.
 
 4 . Key challenges
+
 Scale variance – Broadcast zoom vs. Tacticam wide shot; fixed ResNet input helps but not perfect.  
 Tiny bounding boxes(< 50 px tall) – Discarded early to avoid noisy embeddings.  
 FPS mismatch – Some feeds reported 59.94 fps vs. 30 fps; handled by reading frame‑pairs in lock‑step.  
